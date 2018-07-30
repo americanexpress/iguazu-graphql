@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`addGraphQLEndpoints throws when not given a Function for the fetch option 1`] = `"required param fetch must be a function (was boolean)"`;
+
+exports[`addGraphQLEndpoints throws when not given a fetch option 1`] = `"required param fetch must be a function (was undefined)"`;
+
+exports[`addGraphQLEndpoints throws when not given a name as a String for the endpoint 1`] = `"required param name must be a string (was number)"`;
+
+exports[`addGraphQLEndpoints throws when not given a name for the endpoint 1`] = `"required param name must be a string (was falsey)"`;
+
+exports[`addGraphQLEndpoints throws when not given a object as the opts option 1`] = `"param opts must be an object (was number)"`;

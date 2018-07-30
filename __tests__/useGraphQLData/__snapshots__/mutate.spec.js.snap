@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mutateGraphQLData requires a mutation 1`] = `"mutateGraphQLData requires the mutation argument"`;
+
+exports[`mutateGraphQLData requires an endpointName 1`] = `"mutateGraphQLData requires the endpointName argument"`;
+
+exports[`mutateGraphQLData requires variables to be an object 1`] = `"mutateGraphQLData requires the variables argument to be an object"`;

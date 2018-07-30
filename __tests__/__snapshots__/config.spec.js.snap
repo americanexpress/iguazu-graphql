@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`config addEndpoint throws when not provided with a name to reference the endpoint configuration 1`] = `"name must be a string (was falsey)"`;
+
+exports[`config addEndpoint throws when not provided with a name to reference the endpoint configuration 2`] = `"name must be a string (was number)"`;
+
+exports[`config addEndpoint throws when provided with an existing name 1`] = `"cannot override existing config for throws-when-provided-with-an-existing-name"`;
+
+exports[`config getEndpoint throws when provided with an name that does not exist 1`] = `"throws-when-provided-with-an-name-that-does-not-exist is not a configured endpoint"`;

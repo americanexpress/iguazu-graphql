@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`duck reducer QUERY_STARTED requires the endpointName to be specified 1`] = `"@@iguazu-graphql/QUERY_STARTED action must supply the endpoint name"`;
+
+exports[`duck reducer QUERY_STARTED requires the query to be specified 1`] = `"@@iguazu-graphql/QUERY_STARTED action must supply the query"`;
+
+exports[`duck reducer QUERY_STARTED requires the variables to be the right type 1`] = `"@@iguazu-graphql/QUERY_STARTED action must supply variables as an object"`;
+
+exports[`duck reducer builds and returns an inital state 1`] = `
+Immutable.Map {
+  "endpoints": Immutable.Map {},
+}
+`;

@@ -1,0 +1,46 @@
+{
+  "name": "iguazu-graphql",
+  "version": "1.0.0",
+  "description": "Iguazu adapter for GraphQL data.",
+  "main": "lib/index.js",
+  "module": "src/index.js",
+  "sideEffects": false,
+  "files": [
+    "lib",
+    "src"
+  ],
+  "scripts": {
+    "build": "babel src --out-dir lib",
+    "lint": "eslint --ignore-path .gitignore --ext js,jsx,snap .",
+    "test": "jest",
+    "posttest": "npm run lint",
+    "prepack": "npm run build"
+  },
+  "keywords": [
+    "iguazu",
+    "graphql",
+    "data",
+    "loadDataAsProps"
+  ],
+  "author": "Nick Oliver <Nickolas.Oliver@aexp.com>",
+  "license": "Apache-2.0",
+  "devDependencies": {
+    "amex-jest-preset": "^5.0.0",
+    "babel-cli": "^6.26.0",
+    "babel-preset-amex": "^1.1.0",
+    "eslint": "^5.2.0",
+    "eslint-config-amex": "^7.1.1",
+    "fetch-everywhere": "^1.0.5",
+    "fetch-mock": "^6.5.2",
+    "jest": "^23.4.2"
+  },
+  "jest": {
+    "preset": "amex-jest-preset"
+  },
+  "dependencies": {
+    "deepmerge": "^1.5.0",
+    "graphql": "^0.13.2",
+    "immutable": "^3.8.1",
+    "object-hash": "^1.1.8"
+  }
+}

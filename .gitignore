@@ -1,0 +1,11 @@
+# node & npm
+node_modules
+*.log
+
+# test
+test-results
+.jest-cache
+
+# build
+lib
+/*.tgz

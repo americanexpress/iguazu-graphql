@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`executeFetch dispatches a MUTATION_ERROR action when the response status is not a success 1`] = `[Error: Bad Request (https://sample-endpoint.tld/graphql)]`;
+
+exports[`executeFetch dispatches a QUERY_ERROR action when the response status is not a success 1`] = `[Error: Bad Request (https://sample-endpoint.tld/graphql)]`;
