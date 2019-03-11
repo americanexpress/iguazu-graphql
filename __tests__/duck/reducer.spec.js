@@ -19,7 +19,7 @@ import hash from 'object-hash';
 import reducer from '../../src/duck/reducer';
 
 import {
-  QUERY_STARTED, QUERY_FINISHED, QUERY_ERROR, INVALIDATE_QUERY,
+  QUERY_STARTED, QUERY_FINISHED, QUERY_ERROR, INVALIDATE_QUERY, CLEAR_QUERY,
   MUTATION_STARTED, MUTATION_FINISHED, MUTATION_ERROR,
 } from '../../src/duck/types';
 
@@ -239,6 +239,128 @@ describe('duck', () => {
         });
         const firstState = reducer(originalState, { type, endpointName, query });
         expect(firstState.getIn(['endpoints', endpointName, 'queries', queryHash])).toEqual(undefined);
+      });
+    });
+
+    describe('CLEAR_QUERY', () => {
+      const type = CLEAR_QUERY;
+      const endpointName = 'sample-endpoint';
+      const query = '{a{b}}';
+      const queryHash = hash(query);
+      const variableHash = hash(null);
+
+      it('clears the stored state of the query request', () => {
+        const storedStateOfQuery = new ImmutableMap({
+          status: 'complete',
+          data: { a: { b: 'hello' } },
+        });
+        const originalState = new ImmutableMap({
+          endpoints: new ImmutableMap({
+            [endpointName]: new ImmutableMap({
+              queries: new ImmutableMap({
+                [hash(query)]: new ImmutableMap({
+                  typenames: new ImmutableSet(['A']),
+                  variables: new ImmutableMap({
+                    [hash(null)]: storedStateOfQuery,
+                  }),
+                }),
+              }),
+            }),
+          }),
+        });
+
+        const action = { type, query, endpointName };
+        const newState = reducer(originalState, action);
+        expect(newState.getIn(['endpoints', endpointName, 'queries', queryHash, 'variables', variableHash]))
+          .toEqual(undefined);
+      });
+
+      it('does not affect other queries for the same endpoint', () => {
+        const storedStateOfQuery = new ImmutableMap({
+          status: 'complete',
+          data: { a: { b: 'hello' } },
+        });
+
+        const otherQuery = '{a{b, c}}';
+
+        const originalState = new ImmutableMap({
+          endpoints: new ImmutableMap({
+            [endpointName]: new ImmutableMap({
+              queries: new ImmutableMap({
+                [hash(query)]: new ImmutableMap({
+                  typenames: new ImmutableSet(['A']),
+                  variables: new ImmutableMap({
+                    [hash(null)]: storedStateOfQuery,
+                  }),
+                }),
+              }),
+            }),
+          }),
+        });
+
+        const action = { type, query: otherQuery, endpointName };
+        const newState = reducer(originalState, action);
+        expect(newState.getIn(['endpoints', endpointName, 'queries', queryHash, 'variables', variableHash]))
+          .toEqual(new ImmutableMap({ status: 'complete', data: { a: { b: 'hello' } } }));
+      });
+
+      it('does not affect other ebdpoint', () => {
+        const storedStateOfQuery = new ImmutableMap({
+          status: 'complete',
+          data: { a: { b: 'hello' } },
+        });
+
+        const otherEndpoint = 'some-other-endpoint';
+        const originalState = new ImmutableMap({
+          endpoints: new ImmutableMap({
+            [endpointName]: new ImmutableMap({
+              queries: new ImmutableMap({
+                [hash(query)]: new ImmutableMap({
+                  typenames: new ImmutableSet(['A']),
+                  variables: new ImmutableMap({
+                    [hash(null)]: storedStateOfQuery,
+                  }),
+                }),
+              }),
+            }),
+          }),
+        });
+
+        const action = { type, query, endpointName: otherEndpoint };
+        const newState = reducer(originalState, action);
+        expect(newState.getIn(['endpoints', endpointName, 'queries', queryHash, 'variables', variableHash]))
+          .toEqual(new ImmutableMap({ status: 'complete', data: { a: { b: 'hello' } } }));
+      });
+
+      it('does not affect other variables for the same endpoint and query', () => {
+        const storedStateOfQuery = new ImmutableMap({
+          status: 'complete',
+          data: { a: { b: 'hello' } },
+        });
+
+        const variables = { param: 'value' };
+
+        const originalState = new ImmutableMap({
+          endpoints: new ImmutableMap({
+            [endpointName]: new ImmutableMap({
+              queries: new ImmutableMap({
+                [hash(query)]: new ImmutableMap({
+                  typenames: new ImmutableSet(['A']),
+                  variables: new ImmutableMap({
+                    [hash(null)]: storedStateOfQuery,
+                  }),
+                }),
+              }),
+            }),
+          }),
+        });
+
+        const action = {
+          type, query, endpointName, variables,
+        };
+        const newState = reducer(originalState, action);
+        expect(newState.getIn(['endpoints', endpointName, 'queries', queryHash, 'variables', variableHash]))
+          .toEqual(new ImmutableMap({ status: 'complete', data: { a: { b: 'hello' } } }));
       });
     });
 

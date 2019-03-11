@@ -18,6 +18,7 @@ export const QUERY_STARTED = '@@iguazu-graphql/QUERY_STARTED';
 export const QUERY_FINISHED = '@@iguazu-graphql/QUERY_FINISHED';
 export const QUERY_ERROR = '@@iguazu-graphql/QUERY_ERROR';
 export const INVALIDATE_QUERY = '@@iguazu-graphql/INVALIDATE_QUERY';
+export const CLEAR_QUERY = '@@iguazu-graphql/CLEAR_QUERY';
 
 export const MUTATION_STARTED = '@@iguazu-graphql/MUTATION_STARTED';
 export const MUTATION_FINISHED = '@@iguazu-graphql/MUTATION_FINISHED';

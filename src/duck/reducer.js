@@ -18,7 +18,7 @@ import { Map as ImmutableMap, Set as ImmutableSet } from 'immutable';
 import hash from 'object-hash';
 
 import {
-  QUERY_STARTED, QUERY_FINISHED, QUERY_ERROR, INVALIDATE_QUERY,
+  QUERY_STARTED, QUERY_FINISHED, QUERY_ERROR, INVALIDATE_QUERY, CLEAR_QUERY,
   MUTATION_STARTED, MUTATION_FINISHED, MUTATION_ERROR,
 } from './types';
 
@@ -92,6 +92,11 @@ function graphqlReducer(state = buildInitialState(), action) {
       const endpointId = getEndpointIdFromAction(action, INVALIDATE_QUERY);
       const queryId = hash(query);
       return state.deleteIn(['endpoints', endpointId, 'queries', queryId]);
+    }
+    case CLEAR_QUERY: {
+      const { endpointId, queryId, variablesId } = getIdsFromAction(action, CLEAR_QUERY);
+      return state
+        .deleteIn(['endpoints', endpointId, 'queries', queryId, 'variables', variablesId]);
     }
     case MUTATION_STARTED:
       // noop, don't need to store/cache mutations
