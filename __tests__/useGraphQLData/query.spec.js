@@ -116,6 +116,49 @@ describe('queryGraphQLData', () => {
     expect(iguazuData).toEqual(cachedFetchStatus.toJS());
   });
 
+  it('returns a new fetch when forceFetch is true and cache is valid', () => {
+    executeFetch.mockClear();
+    const endpointName = 'sample-endpoint';
+    const query = '{a{b}}';
+    const variables = { c: 3 };
+    const forceFetch = true;
+    const dispatch = jest.fn(v => v);
+    const cachedFetchStatus = new ImmutableMap({
+      status: 'complete',
+      data: { a: { b: 'hello' } },
+    });
+    const getState = () => ({
+      iguazuGraphQL: new ImmutableMap({
+        endpoints: new ImmutableMap({
+          [endpointName]: new ImmutableMap({
+            queries: new ImmutableMap({
+              [hash(query)]: new ImmutableMap({
+                typenames: new ImmutableSet(['A']),
+                variables: new ImmutableMap({
+                  [hash(variables)]: cachedFetchStatus,
+                }),
+              }),
+            }),
+          }),
+        }),
+      }),
+    });
+    const thunk = queryGraphQLData({
+      endpointName,
+      query,
+      variables,
+      forceFetch,
+    });
+    const iguazuData = thunk(dispatch, getState);
+    expect(dispatch).toHaveBeenCalledTimes(1);
+    expect(executeFetch).toHaveBeenCalledTimes(1);
+    expect(dispatch.mock.calls[0][0]).toBeInstanceOf(Promise);
+    expect(iguazuData).toEqual({
+      promise: dispatch.mock.calls[0][0],
+      status: 'loading',
+    });
+  });
+
   it('dispatches a new fetch when a cached query fetch is not found', () => {
     executeFetch.mockClear();
     const endpointName = 'sample-endpoint';

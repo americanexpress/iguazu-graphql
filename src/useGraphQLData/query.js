@@ -21,16 +21,22 @@ import { validatePointersToQueryData } from './validatePointersToData';
 const actionType = 'QUERY';
 const fnName = 'queryGraphQLData';
 
-export default function queryGraphQLData({ endpointName, query, variables = null }) {
+export default function queryGraphQLData({
+  endpointName,
+  query,
+  variables = null,
+  forceFetch = false,
+}) {
   validatePointersToQueryData({
     fnName, endpointName, query, variables,
   });
 
   return (dispatch, getState) => {
-    const queryState = getStateOfQuery({ endpointName, query, variables })(getState);
-
-    if (queryState) {
-      return queryState.toJS();
+    if (!forceFetch) {
+      const queryState = getStateOfQuery({ endpointName, query, variables })(getState);
+      if (queryState) {
+        return queryState.toJS();
+      }
     }
 
     const promise = dispatch(executeFetch({
