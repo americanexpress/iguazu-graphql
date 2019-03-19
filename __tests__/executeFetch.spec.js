@@ -42,6 +42,25 @@ describe('executeFetch', () => {
 
   it('returns a function', () => expect(executeFetch({})).toBeInstanceOf(Function));
 
+  it('sends a network request using a provided fetchClient by redux thunk', () => {
+    expect.assertions(3);
+    const fakeEnhancedFetch = jest.fn();
+    config.baseFetch.mockClear();
+    const dispatch = jest.fn(v => v);
+    const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
+    const actionType = 'QUERY';
+    const endpointName = 'sample-endpoint';
+    const query = '{a{b}}';
+    const variables = null;
+    fetchMock.post('https://sample-endpoint.tld/graphql', { data: { a: { __typename: 'A', b: 1 } } });
+    executeFetch({
+      actionType, endpointName, query, variables,
+    })(dispatch, getState, { fetchClient: fakeEnhancedFetch });
+    expect(config.baseFetch).not.toHaveBeenCalled();
+    expect(fakeEnhancedFetch).toHaveBeenCalledTimes(1);
+    expect(fakeEnhancedFetch.mock.calls[0][0]).toBe('https://sample-endpoint.tld/graphql');
+  });
+
   it('sends a network request to the configured endpoint', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();

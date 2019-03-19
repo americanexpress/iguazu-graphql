@@ -38,6 +38,32 @@ addGraphQLEndpoints([
 
 Deeper configuration is available and is explained in the "Detailed Configuration" section later on.
 
+Advanced Setup
+--------------
+
+You may also supply a custom `fetch` client to iguazu-graphql using Redux Thunk.
+This will *override* any `baseFetch` configuration in Iguazu GraphQL with the
+`thunk` supplied fetch client. (See [Thunk withExtraArgument
+docs](https://github.com/reduxjs/redux-thunk#injecting-a-custom-argument))
+
+```javascript
+import { createStore, combineReducers, applyMiddleware } from 'redux'
+import { graphqlReducer } from 'iguazu-graphql';
+import thunk from 'redux-thunk';
+
+/* Contrived custom fetch client */
+const customFetchClient = (...args) => fetch(...args)
+
+const store = createStore(
+  combineReducers({
+    iguazuGraphQL: graphqlReducer,
+  }),
+  applyMiddleware(thunk.withExtraArgument({
+    fetchClient: customFetchClient
+  }))
+);
+```
+
 Implementing Container Components
 ---------------------------------
 
@@ -234,6 +260,9 @@ configureIguazuGraphQL({
   }
 });
 ```
+
+**Note:** The `baseFetch` option is overriden if `fetchClient` is set with Redux
+Thunk's withExtraArgument. (See [Advanced Setup](#advanced-setup) for details)
 
 ### Example: different state location
 

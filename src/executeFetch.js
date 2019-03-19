@@ -55,13 +55,15 @@ async function extractDataFromResponse(res) {
 }
 
 async function getAsyncData({
-  endpointName, getState, query, variables,
+  endpointName, getState, query, variables, fetchClient,
 }) {
   const { defaultOpts = {} } = config;
   const { fetch, opts: endpointOpts = {} } = config.getEndpoint(endpointName);
   const { url, opts: fetchOpts = {} } = fetch(getState());
   const { baseFetch } = config;
   const queryWithTypeNames = addTypeNamesToQuery(query);
+
+  const selectedFetchClient = fetchClient || baseFetch;
 
   const mergedOpts = merge.all([
     {
@@ -82,7 +84,7 @@ async function getAsyncData({
     },
   ]);
 
-  const res = await baseFetch(url, mergedOpts);
+  const res = await selectedFetchClient(url, mergedOpts);
   return extractDataFromResponse(res);
 }
 
@@ -102,9 +104,9 @@ function waitAndDispatchFinished(promise, action) {
 export default function executeFetch({
   actionType, endpointName, query, variables,
 }) {
-  return (dispatch, getState) => {
+  return (dispatch, getState, { fetchClient } = {}) => {
     const promise = getAsyncData({
-      endpointName, getState, query, variables,
+      endpointName, getState, query, variables, fetchClient,
     });
     dispatch({
       type: types[`${actionType}_STARTED`], endpointName, query, variables, promise,
