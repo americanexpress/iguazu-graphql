@@ -274,5 +274,5 @@ Any contributions made under this project will be governed by the [Apache Licens
 2.0](https://github.com/americanexpress/iguazu-graphql/blob/master/LICENSE.txt).
 
 ## Code of Conduct
-This project adheres to the [American Express Community Guidelines](https://github.com/americanexpress/iguazu-graphql/blob/master/Code-of-Conduct).
+This project adheres to the [American Express Community Guidelines](./CODE_OF_CONDUCT.md).
 By participating, you are expected to honor these guidelines.
