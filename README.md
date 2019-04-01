@@ -3,6 +3,9 @@ Iguazu Graphql
 
 An [Iguazu](https://github.com/americanexpress/iguazu) adapter for GraphQL data.
 
+> Want to get paid for your contributions to `iguazu-graphql`?
+> Send your resume to oneamex.careers@aexp.com
+
 Quick Setup
 -----------
 
