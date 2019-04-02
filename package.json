@@ -1,6 +1,6 @@
 {
   "name": "iguazu-graphql",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Iguazu adapter for GraphQL data.",
   "main": "lib/index.js",
   "module": "src/index.js",
