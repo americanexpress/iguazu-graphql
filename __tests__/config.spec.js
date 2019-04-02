@@ -44,9 +44,54 @@ describe('config', () => {
       expect(() => config.addEndpoint(6)).toThrowErrorMatchingSnapshot();
     });
 
-    it('throws when provided with an existing name', () => {
-      expect(() => config.addEndpoint('throws-when-provided-with-an-existing-name')).not.toThrowError();
-      expect(() => config.addEndpoint('throws-when-provided-with-an-existing-name')).toThrowErrorMatchingSnapshot();
+    it('throws when provided with an existing name but different configuration', () => {
+      expect(() => config.addEndpoint(
+        'throws-when-provided-with-an-existing-name',
+        {
+          fetch: () => ({ url: 'https://example.com/graphql' }),
+        }
+      )).not.toThrowError();
+      expect(() => config.addEndpoint(
+        'throws-when-provided-with-an-existing-name',
+        {
+          fetch: () => ({ url: 'https://example.com/graphql-is-awesome' }),
+        }
+      )).toThrowErrorMatchingSnapshot();
+    });
+
+    it('warns but does not throw when the end configuration result is the same', () => {
+      jest.spyOn(console, 'warn').mockClear();
+      expect(() => config.addEndpoint(
+        'end-configuration-result-is-the-same',
+        {
+          fetch: state => ({
+            url: `https://${state.config.myDomainForData}/graphql`,
+            opts: {
+              headers: { 'X-CSRF': state.config.csrfToken },
+            },
+          }),
+          opts: {
+            headers: { 'API-Token': 'twelve' },
+          },
+        }
+      )).not.toThrowError();
+      expect(console.warn).not.toHaveBeenCalled();
+      expect(() => config.addEndpoint(
+        'end-configuration-result-is-the-same',
+        {
+          fetch: state => ({
+            url: `https://${state.config.myDomainForData}/graphql`,
+            opts: {
+              headers: { 'X-CSRF': state.config.csrfToken },
+            },
+          }),
+          opts: {
+            headers: { 'API-Token': 'twelve' },
+          },
+        }
+      )).not.toThrowError();
+      expect(console.warn).toHaveBeenCalledTimes(1);
+      expect(console.warn.mock.calls[0]).toMatchSnapshot();
     });
   });
 

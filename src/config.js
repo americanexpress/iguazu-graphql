@@ -14,7 +14,13 @@
  * permissions and limitations under the License.
  */
 
+import hash from 'object-hash';
+
 const endpoints = new Map();
+
+function hashOptions(opts) {
+  return hash(opts, { respectFunctionNames: false });
+}
 
 // function addEndpoint({ name, ...opts }) {
 function addEndpoint(name, opts) {
@@ -23,11 +29,18 @@ function addEndpoint(name, opts) {
     throw new Error(`name must be a string (was ${name ? typeof name : 'falsey'})`);
   }
 
-  if (endpoints.has(name)) {
-    throw new Error(`cannot override existing config for ${name}`);
+  if (!endpoints.has(name)) {
+    endpoints.set(name, opts);
+    return;
   }
 
-  endpoints.set(name, opts);
+  const existingOpts = endpoints.get(name);
+  if (hashOptions(opts) === hashOptions(existingOpts)) {
+    console.warn(`configuration for ${name} already exists, but is the same`);
+    return;
+  }
+
+  throw new Error(`cannot override existing config for ${name}`);
 }
 
 function getEndpoint(name) {
