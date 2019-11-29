@@ -28,5 +28,5 @@ export function getStateBranch(stateOrGetState) {
 export function getStateOfQuery({ endpointName, query, variables }) {
   const queryHash = hash(query);
   const variablesHash = hash(variables);
-  return state => getStateBranch(state).getIn(['endpoints', endpointName, 'queries', queryHash, 'variables', variablesHash]);
+  return (state) => getStateBranch(state).getIn(['endpoints', endpointName, 'queries', queryHash, 'variables', variablesHash]);
 }

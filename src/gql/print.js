@@ -25,7 +25,7 @@ import { visit } from 'graphql/language/visitor'; // pulls in less
  * together separated by separator if provided
  */
 function join(maybeArray, separator) {
-  return maybeArray ? maybeArray.filter(x => x).join(separator || '') : '';
+  return maybeArray ? maybeArray.filter((x) => x).join(separator || '') : '';
 }
 
 /**
@@ -58,11 +58,11 @@ function printBlockString(value) {
 }
 
 const printMinifiedDocASTReducer = {
-  Name: node => node.value,
-  Variable: node => `$${node.name}`,
+  Name: (node) => node.value,
+  Variable: (node) => `$${node.name}`,
 
   // Documents
-  Document: node => join(node.definitions),
+  Document: (node) => join(node.definitions),
   OperationDefinition(node) {
     const {
       operation: op,
@@ -84,23 +84,20 @@ const printMinifiedDocASTReducer = {
   SelectionSet: ({ selections }) => block(selections),
   Field: ({
     alias, name, arguments: args, directives, selectionSet,
-  }) =>
-    join([
-      wrap('', alias, ':') + name + wrap('(', join(args, ','), ')'),
-      join(directives),
-      selectionSet,
-    ]),
+  }) => join([
+    wrap('', alias, ':') + name + wrap('(', join(args, ','), ')'),
+    join(directives),
+    selectionSet,
+  ]),
   Argument: ({ name, value }) => `${name}:${value}`,
 
   // Fragments
-  FragmentSpread: ({ name, directives }) =>
-    `...${name}${wrap('', join(directives, ''))}`,
+  FragmentSpread: ({ name, directives }) => `...${name}${wrap('', join(directives, ''))}`,
 
-  InlineFragment: ({ typeCondition, directives, selectionSet }) =>
-    join(
-      ['...', wrap('on ', typeCondition), join(directives, ' '), selectionSet],
-      ' '
-    ),
+  InlineFragment: ({ typeCondition, directives, selectionSet }) => join(
+    ['...', wrap('on ', typeCondition), join(directives, ' '), selectionSet],
+    ' '
+  ),
 
   FragmentDefinition: ({
     name,
@@ -108,12 +105,11 @@ const printMinifiedDocASTReducer = {
     variableDefinitions,
     directives,
     selectionSet,
-  }) =>
     // Note: fragment variable definitions are experimental and may be changed
     // or removed in the future.
-    `${`fragment ${name}${wrap('(', join(variableDefinitions, ','), ')')} ` +
-    `on ${typeCondition}${wrap('', join(directives, ''), '')}`}${
-      selectionSet}`,
+  }) => `${`fragment ${name}${wrap('(', join(variableDefinitions, ','), ')')} `
+    + `on ${typeCondition}${wrap('', join(directives, ''), '')}`}${
+    selectionSet}`,
 
   // Directive
   Directive: ({ name, arguments: args }) => `@${name}${wrap('(', join(args, ','), ')')}`,
@@ -122,9 +118,9 @@ const printMinifiedDocASTReducer = {
   IntValue: ({ value }) => value,
   FloatValue: ({ value }) => value,
   StringValue: ({ value, block: isBlockString }) => (
-    isBlockString ?
-      printBlockString(value) :
-      JSON.stringify(value)
+    isBlockString
+      ? printBlockString(value)
+      : JSON.stringify(value)
   ),
   BooleanValue: ({ value }) => (value ? 'true' : 'false'),
   NullValue: () => 'null',

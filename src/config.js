@@ -57,7 +57,7 @@ function getEndpoint(name) {
 const config = {
   baseFetch: fetch,
   // don't like the name, but it's part of iguazu-rest so it's consistent 😬
-  getToState: state => state.iguazuGraphQL,
+  getToState: (state) => state.iguazuGraphQL,
   addEndpoint,
   getEndpoint,
 };

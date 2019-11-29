@@ -26,7 +26,7 @@ function findTypenames(obj, typenames = []) {
   }
 
   if (Array.isArray(obj)) {
-    obj.forEach(field => findTypenames(field, typenames));
+    obj.forEach((field) => findTypenames(field, typenames));
   } else {
     Object.entries(obj).forEach(([key, val]) => {
       if (key === '__typename') {
@@ -92,11 +92,11 @@ function waitAndDispatchFinished(promise, action) {
   return async (dispatch) => {
     try {
       const { data, errors, typenames } = await promise;
-      dispatch(Object.assign({}, action, {
-        type: types[`${action.type}_FINISHED`], data, error: errors, typenames,
-      }));
+      dispatch({
+        ...action, type: types[`${action.type}_FINISHED`], data, error: errors, typenames,
+      });
     } catch (error) {
-      dispatch(Object.assign({}, action, { type: types[`${action.type}_ERROR`], error }));
+      dispatch({ ...action, type: types[`${action.type}_ERROR`], error });
     }
   };
 }

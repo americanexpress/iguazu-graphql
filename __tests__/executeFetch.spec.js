@@ -27,7 +27,7 @@ import executeFetch from '../src/executeFetch';
 
 jest.mock('../src/config', () => ({
   baseFetch: jest.fn((...args) => global.fetch(...args)),
-  getEndpoint: jest.fn(name => ({ name, fetch: state => ({ url: `https://${state.name}.tld/graphql` }) })),
+  getEndpoint: jest.fn((name) => ({ name, fetch: (state) => ({ url: `https://${state.name}.tld/graphql` }) })),
 }));
 
 describe('executeFetch', () => {
@@ -46,7 +46,7 @@ describe('executeFetch', () => {
     expect.assertions(3);
     const fakeEnhancedFetch = jest.fn();
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -64,7 +64,7 @@ describe('executeFetch', () => {
   it('sends a network request to the configured endpoint', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -81,7 +81,7 @@ describe('executeFetch', () => {
   it('sends the request as a POST by default', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -98,7 +98,7 @@ describe('executeFetch', () => {
   it('sends the request as the method configured by the iguazu-graphql config', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -116,16 +116,16 @@ describe('executeFetch', () => {
   it('sends the request as the method configured by the endpoint config', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
     const query = '{a{b}}';
     const variables = null;
     fetchMock.get('https://sample-endpoint.tld/graphql', { data: { a: { __typename: 'A', b: 2 } } });
-    config.getEndpoint.mockImplementationOnce(name => ({
+    config.getEndpoint.mockImplementationOnce((name) => ({
       name,
-      fetch: state => ({ url: `https://${state.name}.tld/graphql` }),
+      fetch: (state) => ({ url: `https://${state.name}.tld/graphql` }),
       opts: { method: 'GET' },
     }));
     executeFetch({
@@ -138,16 +138,16 @@ describe('executeFetch', () => {
   it('sends the request as the method configured by the endpoint config, overriding the iguazu-graphql config', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
     const query = '{a{b}}';
     const variables = null;
     fetchMock.put('https://sample-endpoint.tld/graphql', { data: { a: { __typename: 'A', b: 2 } } });
-    config.getEndpoint.mockImplementationOnce(name => ({
+    config.getEndpoint.mockImplementationOnce((name) => ({
       name,
-      fetch: state => ({ url: `https://${state.name}.tld/graphql` }),
+      fetch: (state) => ({ url: `https://${state.name}.tld/graphql` }),
       opts: { method: 'PUT' },
     }));
     config.defaultOpts = { method: 'GET' };
@@ -161,16 +161,16 @@ describe('executeFetch', () => {
   it('sends the request as the method configured by the fetch config', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
     const query = '{a{b}}';
     const variables = null;
     fetchMock.get('https://sample-endpoint.tld/graphql', { data: { a: { __typename: 'A', b: 2 } } });
-    config.getEndpoint.mockImplementationOnce(name => ({
+    config.getEndpoint.mockImplementationOnce((name) => ({
       name,
-      fetch: state => ({ url: `https://${state.name}.tld/graphql`, opts: { method: 'GET' } }),
+      fetch: (state) => ({ url: `https://${state.name}.tld/graphql`, opts: { method: 'GET' } }),
     }));
     executeFetch({
       actionType, endpointName, query, variables,
@@ -182,16 +182,16 @@ describe('executeFetch', () => {
   it('sends the request as the method configured by the fetch config, overriding the endpoint config', () => {
     expect.assertions(2);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
     const query = '{a{b}}';
     const variables = null;
     fetchMock.put('https://sample-endpoint.tld/graphql', { data: { a: { __typename: 'A', b: 2 } } });
-    config.getEndpoint.mockImplementationOnce(name => ({
+    config.getEndpoint.mockImplementationOnce((name) => ({
       name,
-      fetch: state => ({ url: `https://${state.name}.tld/graphql`, opts: { method: 'PUT' } }),
+      fetch: (state) => ({ url: `https://${state.name}.tld/graphql`, opts: { method: 'PUT' } }),
       opts: { method: 'GET' },
     }));
     executeFetch({
@@ -204,7 +204,7 @@ describe('executeFetch', () => {
   it('sends the query in the body of the request', () => {
     expect.assertions(3);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -222,7 +222,7 @@ describe('executeFetch', () => {
   it('includes __typenames in the query sent', () => {
     expect.assertions(3);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -240,7 +240,7 @@ describe('executeFetch', () => {
   it('sends the variables in the body of the request', () => {
     expect.assertions(4);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -260,7 +260,7 @@ describe('executeFetch', () => {
   it('sends the request with JSON MIME type', () => {
     expect.assertions(3);
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -277,7 +277,7 @@ describe('executeFetch', () => {
 
   it('request the response be sent as JSON via MIME type', async () => {
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -294,7 +294,7 @@ describe('executeFetch', () => {
 
   it('dispatches a QUERY_STARTED action with details of the request', async () => {
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -317,7 +317,7 @@ describe('executeFetch', () => {
 
   it('dispatches a QUERY_FINISHED action with the data of the response', async () => {
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -348,7 +348,7 @@ describe('executeFetch', () => {
 
   it('dispatches a QUERY_FINISHED action with the typenames from the response', async () => {
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -382,7 +382,7 @@ describe('executeFetch', () => {
     config.baseFetch.mockClear();
     const sampleError = new Error('like a network error');
     config.baseFetch.mockImplementationOnce(() => Promise.reject(sampleError));
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -419,7 +419,7 @@ describe('executeFetch', () => {
       status: 400,
       body: { hello: 'world' },
     });
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'QUERY';
     const endpointName = 'sample-endpoint';
@@ -454,7 +454,7 @@ describe('executeFetch', () => {
 
   it('dispatches a MUTATION_STARTED action with details of the request', async () => {
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'MUTATION';
     const endpointName = 'sample-endpoint';
@@ -486,7 +486,7 @@ describe('executeFetch', () => {
 
   it('dispatches a MUTATION_FINISHED action with the data of the response, including typenames', async () => {
     config.baseFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'MUTATION';
     const endpointName = 'sample-endpoint';
@@ -529,7 +529,7 @@ describe('executeFetch', () => {
     config.baseFetch.mockClear();
     const sampleError = new Error('like a network error');
     config.baseFetch.mockImplementationOnce(() => Promise.reject(sampleError));
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'MUTATION';
     const endpointName = 'sample-endpoint';
@@ -575,7 +575,7 @@ describe('executeFetch', () => {
       status: 400,
       body: { hello: 'world' },
     });
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = jest.fn(() => ({ name: 'sample-endpoint' }));
     const actionType = 'MUTATION';
     const endpointName = 'sample-endpoint';

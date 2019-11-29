@@ -34,7 +34,7 @@ function validateMutation(fnName, mutation) {
 
 function validateVariables(fnName, variables) {
   if (typeof variables !== 'object') {
-    throw new Error(`${fnName} requires the variables argument to be an object`);
+    throw new TypeError(`${fnName} requires the variables argument to be an object`);
   }
 }
 

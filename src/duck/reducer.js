@@ -59,7 +59,7 @@ function getIdsFromAction(action, actionType) {
   }
 
   if (typeof variables !== 'object') {
-    throw new Error(`${actionType} action must supply variables as an object`);
+    throw new TypeError(`${actionType} action must supply variables as an object`);
   }
   const queryId = hash(query);
   const variablesId = hash(variables);
@@ -107,7 +107,7 @@ function graphqlReducer(state = buildInitialState(), action) {
       return state
         .setIn(['endpoints', endpointId, 'queries'], state.getIn(['endpoints', endpointId, 'queries'], new ImmutableMap()).withMutations((queries) => {
           if (!typenames) { return; }
-          typenames.forEach(typename => queries.entrySeq().forEach(([queryId, queryEntry]) => {
+          typenames.forEach((typename) => queries.entrySeq().forEach(([queryId, queryEntry]) => {
             if (queryEntry.get('typenames').includes(typename)) {
               queries.delete(queryId);
             }

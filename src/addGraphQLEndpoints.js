@@ -34,5 +34,5 @@ function addGraphQLEndpoint({ name, fetch, opts }) {
 
 export default function addGraphQLEndpoints(arg) {
   const endpoints = Array.isArray(arg) ? arg : [arg];
-  endpoints.forEach(endpoint => addGraphQLEndpoint(endpoint));
+  endpoints.forEach((endpoint) => addGraphQLEndpoint(endpoint));
 }

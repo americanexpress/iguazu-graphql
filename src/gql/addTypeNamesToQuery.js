@@ -53,6 +53,6 @@ function addTokenName({ selections } = {}, depth = 0) {
 
 export default function addTokenNamesToQuery(query) {
   const document = parse(query);
-  document.definitions.forEach(definition => addTokenName(definition.selectionSet));
+  document.definitions.forEach((definition) => addTokenName(definition.selectionSet));
   return print(document);
 }

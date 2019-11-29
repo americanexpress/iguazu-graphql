@@ -12,6 +12,9 @@
  * under the License.
  */
 
-/* eslint "import/no-extraneous-dependencies": ["error", { "devDependencies": true }] */
-
-require('@babel/polyfill');
+module.exports = {
+  extends: ['@commitlint/config-conventional'],
+  rules: {
+    'scope-case': [2, 'always', ['pascal-case', 'camel-case', 'kebab-case']],
+  },
+};

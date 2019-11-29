@@ -64,7 +64,7 @@ describe('config', () => {
       expect(() => config.addEndpoint(
         'end-configuration-result-is-the-same',
         {
-          fetch: state => ({
+          fetch: (state) => ({
             url: `https://${state.config.myDomainForData}/graphql`,
             opts: {
               headers: { 'X-CSRF': state.config.csrfToken },
@@ -79,7 +79,7 @@ describe('config', () => {
       expect(() => config.addEndpoint(
         'end-configuration-result-is-the-same',
         {
-          fetch: state => ({
+          fetch: (state) => ({
             url: `https://${state.config.myDomainForData}/graphql`,
             opts: {
               headers: { 'X-CSRF': state.config.csrfToken },

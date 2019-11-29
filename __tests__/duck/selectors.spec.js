@@ -34,12 +34,12 @@ describe('duck', () => {
 
       it('is a function', () => expect(getStateBranch).toBeInstanceOf(Function));
       it('selects the state branch from a state value', () => {
-        config.getToState = jest.fn(rootState => rootState.getIn(['a', 'b']));
+        config.getToState = jest.fn((rootState) => rootState.getIn(['a', 'b']));
         expect(getStateBranch(state)).toBe(stateBranch);
       });
 
       it('selects the state branch from a getState function', () => {
-        config.getToState = jest.fn(rootState => rootState.getIn(['a', 'b']));
+        config.getToState = jest.fn((rootState) => rootState.getIn(['a', 'b']));
         const getState = jest.fn(() => state);
         expect(getStateBranch(getState)).toBe(stateBranch);
       });
@@ -69,7 +69,7 @@ describe('duck', () => {
             }),
           }),
         });
-        config.getToState = s => s;
+        config.getToState = (s) => s;
 
         const fetchedStateOfQuery = getStateOfQuery({
           endpointName,
@@ -115,7 +115,7 @@ describe('duck', () => {
             }),
           }),
         });
-        config.getToState = s => s;
+        config.getToState = (s) => s;
 
         const fetchedStateOfQueryForA = getStateOfQuery({
           endpointName: endpointNameA,

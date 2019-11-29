@@ -122,7 +122,7 @@ describe('queryGraphQLData', () => {
     const query = '{a{b}}';
     const variables = { c: 3 };
     const forceFetch = true;
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const cachedFetchStatus = new ImmutableMap({
       status: 'complete',
       data: { a: { b: 'hello' } },
@@ -164,7 +164,7 @@ describe('queryGraphQLData', () => {
     const endpointName = 'sample-endpoint';
     const query = '{a{b}}';
     const variables = { c: 3 };
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const getState = () => ({
       iguazuGraphQL: new ImmutableMap({
         endpoints: new ImmutableMap(),

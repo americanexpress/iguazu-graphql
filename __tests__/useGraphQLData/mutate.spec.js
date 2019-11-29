@@ -63,7 +63,7 @@ describe('mutateGraphQLData', () => {
   it('dispatches a new fetch', () => {
     executeFetch.mockClear();
     const variables = { by: 2 };
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const thunk = mutateGraphQLData({ endpointName: 'endpoint-name', mutation, variables });
     thunk(dispatch);
     expect(executeFetch).toHaveBeenCalledTimes(1);
@@ -77,7 +77,7 @@ describe('mutateGraphQLData', () => {
 
   it('dispatches a new fetch defaulting to variables of null', () => {
     executeFetch.mockClear();
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const thunk = mutateGraphQLData({ endpointName: 'endpoint-name', mutation });
     thunk(dispatch);
     expect(executeFetch).toHaveBeenCalledTimes(1);
@@ -92,7 +92,7 @@ describe('mutateGraphQLData', () => {
   it('dispatches the thunk from executeFetch', () => {
     executeFetch.mockClear();
     const variables = { by: 2 };
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const thunk = mutateGraphQLData({ endpointName: 'endpoint-name', mutation, variables });
     thunk(dispatch);
     expect(dispatch).toHaveBeenCalledTimes(1);
@@ -102,7 +102,7 @@ describe('mutateGraphQLData', () => {
   it('returns the iguazu interface data', () => {
     executeFetch.mockClear();
     const variables = { by: 2 };
-    const dispatch = jest.fn(v => v);
+    const dispatch = jest.fn((v) => v);
     const thunk = mutateGraphQLData({ endpointName: 'endpoint-name', mutation, variables });
     const iguazuData = thunk(dispatch);
     expect(dispatch).toHaveBeenCalledTimes(1);
