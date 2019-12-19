@@ -1,13 +1,9 @@
-<h1>
-  <center>
-    <br />
-    <img src="./iguazu-graphql.png" alt="iguazu-graphql - Iguazu" width="50%" />
-    <br /><br />
-  </center>
+<h1 align="center">
+  <img src='https://github.com/americanexpress/iguazu-graphql/raw/master/iguazu-graphql.png' alt="Iguazu GraphQL - One Amex" width='50%'/>
 </h1>
 
-[![npm version](https://badge.fury.io/js/iguazu-graphql.svg)](https://badge.fury.io/js/iguazu-graphql)
-[![Build Status](https://travis-ci.org/americanexpress/iguazu-graphql.svg?branch=master)](https://travis-ci.org/americanexpress/iguazu-graphql)
+[![npm](https://img.shields.io/npm/v/iguazu-graphql)](https://www.npmjs.com/package/iguazu-graphql)
+[![Travis (.org) branch](https://img.shields.io/travis/americanexpress/iguazu-graphql/master)](https://travis-ci.org/americanexpress/iguazu-graphql)
 
 > Iguazu GraphQL is a plugin for the [Iguazu](https://github.com/americanexpress/iguazu)
 > ecosystem that allows for GraphQL requests backed by a simple cache.
