@@ -9,11 +9,11 @@
   ],
   "contributors": [
     "Andres Escobar <Andres.Escobar@aexp.com> (https://github.com/anescobar1991)",
-    "James Singleton <James.Singleton1@aexp.com> https://github.com/JamesSingleton)",
+    "James Singleton <James.Singleton1@aexp.com> (https://github.com/JamesSingleton)",
     "Jimmy King  <Jimmy.King@aexp.com> (https://github.com/10xLaCroixDrinker)",
     "Jonathan Adshead <Jonathan.Adshead@aexp.com> (https://github.com/JAdshead)",
     "Michael Tobia <Michael.M.Tobia@aexp.com> (https://github.com/Francois-Esquire)",
-    "Michael Tomcal <Michael.A.Tomcal@aexp.com> (https://github.com/mtomcal))",
+    "Michael Tomcal <Michael.A.Tomcal@aexp.com> (https://github.com/mtomcal)",
     "Stephanie Coates  <Stephanie.Coates1@aexp.com> (https://github.com/stephaniecoates)",
     "Nelly Kiboi <Nelly.J.Kiboi@aexp.com> (https://github.com/nellyk)",
     "Nickolas Oliver <nickolas.oliver@aexp.com> (https://github.com/PixnBits)",
@@ -25,7 +25,8 @@
     "lint": "eslint --ignore-path .gitignore --ext js,jsx,snap,md .",
     "prepublish": "npm run build",
     "test": "jest && commitlint --from origin/master --to HEAD",
-    "posttest": "npm run lint"
+    "test:lockfile": "lockfile-lint -p package-lock.json -t npm -a npm -o https: -c -i",
+    "posttest": "npm run lint && npm run test:lockfile"
   },
   "keywords": [
     "async",
@@ -67,9 +68,9 @@
     "object-hash": "^1.1.8"
   },
   "devDependencies": {
-    "@babel/polyfill": "^7.2.5",
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.3.3",
+    "@babel/polyfill": "^7.2.5",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@semantic-release/changelog": "^3.0.5",
@@ -87,9 +88,10 @@
     "fetch-mock": "^8.0.0",
     "husky": "^3.0.9",
     "jest": "^24.1.0",
-    "semantic-release": "^15.13.31",
+    "lockfile-lint": "^3.0.8",
     "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react-dom": "^16.0.0",
+    "semantic-release": "^15.13.31"
   },
   "release": {
     "plugins": [
