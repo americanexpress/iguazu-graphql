@@ -1,4 +1,4 @@
-# Contributing to iguazu
+# Contributing to iguazu-graphql
 
 ✨ Thank you for taking the time to contribute to this project ✨
 
@@ -19,12 +19,12 @@ This project adheres to the American Express [Code of Conduct](./CODE_OF_CONDUCT
 
 ### Installation
 
-1. Fork the repository `iguazu` to your GitHub account.
+1. Fork the repository `iguazu-graphql` to your GitHub account.
 2. Afterwards run the following commands in your terminal
 
     ```bash
-    $ git clone https://github.com/<your-github-username>/iguazu
-    $ cd iguazu
+    $ git clone https://github.com/<your-github-username>/iguazu-graphql
+    $ cd iguazu-graphql
     ```
 
    > replace `your-github-username` with your github username
