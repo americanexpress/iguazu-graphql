@@ -48,11 +48,11 @@ import thunk from 'redux-thunk';
 
 const store = createStore(
   combineReducers({
-    iguazuGraphQL: graphqlReducer,  
+    iguazuGraphQL: graphqlReducer,
   }),
   applyMiddleware(thunk)
 );
-// The graphqlReducer key name must be iguazuGraphQL 
+// The graphqlReducer key name must be iguazuGraphQL
 
 addGraphQLEndpoints([
   {
