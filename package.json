@@ -89,7 +89,7 @@
     "fetch-mock": "^8.3.2",
     "husky": "^3.0.9",
     "jest": "^24.1.0",
-    "lockfile-lint": "^3.0.8",
+    "lockfile-lint": "^4.1.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "semantic-release": "^15.13.31"
