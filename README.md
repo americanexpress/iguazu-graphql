@@ -51,6 +51,7 @@ const store = createStore(
   }),
   applyMiddleware(thunk)
 );
+// The graphqlReducer key name must be iguazuGraphQL
 
 addGraphQLEndpoints([
   {
