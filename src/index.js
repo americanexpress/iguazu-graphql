@@ -15,6 +15,7 @@
  */
 
 import graphqlReducer from './duck/reducer';
+import { getStateOfQuery } from './duck/selectors';
 import { configureIguazuGraphQL } from './config';
 import addGraphQLEndpoints from './addGraphQLEndpoints';
 import queryGraphQLData from './useGraphQLData/query';
@@ -24,6 +25,7 @@ import mutateGraphQLData from './useGraphQLData/mutate';
 export {
   configureIguazuGraphQL,
   graphqlReducer,
+  getStateOfQuery,
   addGraphQLEndpoints,
   queryGraphQLData,
   clearQueryData,

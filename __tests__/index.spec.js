@@ -17,6 +17,7 @@
 import 'fetch-everywhere';
 
 import graphqlReducer from '../src/duck/reducer';
+import { getStateOfQuery } from '../src/duck/selectors';
 import { configureIguazuGraphQL } from '../src/config';
 // import gql from '../src/gql';
 import addGraphQLEndpoints from '../src/addGraphQLEndpoints';
@@ -27,6 +28,7 @@ import * as index from '../src';
 
 describe('index', () => {
   it('exports the redux reducer as graphqlReducer', () => expect(index.graphqlReducer).toBe(graphqlReducer));
+  it('exports query selector getStateOfQuery', () => expect(index.getStateOfQuery).toBe(getStateOfQuery));
   it('exports configureIguazuGraphQL', () => expect(index.configureIguazuGraphQL).toBe(configureIguazuGraphQL));
   // it('exports gql');
   it('exports addGraphQLEndpoints', () => expect(index.addGraphQLEndpoints).toBe(addGraphQLEndpoints));

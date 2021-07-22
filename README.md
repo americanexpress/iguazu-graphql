@@ -348,6 +348,20 @@ const store = createStore(
 configureIguazuGraphQL({ getToState: (state) => state.deep.deeper.deepEnough });
 ```
 
+### Selectors
+
+#### getStateOfQuery
+
+Retrieve the existing result of a query from Redux state.
+
+```js
+const queryState = getStateOfQuery({ endpointName, query, variables })(getState);
+if (queryState) {
+  // do something with ...
+  queryState.toJS();
+}
+```
+
 ## 🏆 Contributing
 
 We welcome Your interest in the American Express Open Source Community on Github.
