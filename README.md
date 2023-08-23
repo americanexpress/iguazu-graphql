@@ -1,3 +1,5 @@
+> ## **NOTICE:** Iguazu is no longer maintained. If you're looking for a data fetching solution for your React application, consider [Fetchye](https://github.com/americanexpress/fetchye). It is more performant and has a more intuitive API. If you know fetch, you know Fetchye.
+
 <h1 align="center">
   <img src='https://github.com/americanexpress/iguazu-graphql/raw/main/iguazu-graphql.png' alt="Iguazu GraphQL - One Amex" width='50%'/>
 </h1>
